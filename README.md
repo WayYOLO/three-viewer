@@ -2,7 +2,7 @@
 
 ## viewer
 
-![image]()
+![image](https://github.com/WayYOLO/three-viewer/raw/main/assets/img/Jietu20221024-092728-HD.gif)
 
 ## Getting Started
 
