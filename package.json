@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://github.com/WayYOLO/three-viewer"
   },
+  "homepage": "https://three-viewer.vercel.app/",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
