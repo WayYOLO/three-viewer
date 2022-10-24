@@ -20,13 +20,13 @@ Start the dev server,
   let parentDiv = document.getElementById ('bim');
 
   // initialize the viewer with the parent element and some parameters
-  embeddedViewer = new OV.EmbeddedViewer (parentDiv, {
-      backgroundColor : new OV.RGBAColor (255, 255, 255, 0),
+  embeddedViewer = new THV.EmbeddedViewer (parentDiv, {
+      backgroundColor : new THV.RGBAColor (255, 255, 255, 0),
       onModelLoaded : () => {
           let model = embeddedViewer.GetModel ();
           console.log(model)
           // do something with the model
-          // embeddedViewer.viewer.SetEdgeSettings (true, new OV.RGBColor (0, 0, 0), 1);
+          // embeddedViewer.viewer.SetEdgeSettings (true, new THV.RGBColor (0, 0, 0), 1);
       }
   });
   // load a model providing model urls
