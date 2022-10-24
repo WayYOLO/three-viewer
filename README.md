@@ -30,7 +30,7 @@ Start the dev server,
   });
   // load a model providing model urls
   embeddedViewer.LoadModelFromUrlList ([
-      './model/model.obj',
-      './model/model.mtl'
+      'https://github.com/WayYOLO/three-viewer/raw/main/assets/model/model.obj',
+      'https://github.com/WayYOLO/three-viewer/raw/main/assets/model/model.mtl'
   ]);
 ```
