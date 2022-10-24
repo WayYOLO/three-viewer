@@ -1,0 +1,53 @@
+{
+  "name": "@wayyolo/three-viewer",
+  "version": "0.0.2",
+  "scripts": {
+    "start": "dumi dev",
+    "docs:build": "dumi build",
+    "docs:deploy": "gh-pages -d docs-dist",
+    "build": "father build",
+    "deploy": "npm run docs:build && npm run docs:deploy",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "dist/esm/index.js",
+  "main": "dist/umd/three-viewer.min.js",
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "dependencies": {
+    "draco3d": "1.5.3",
+    "fflate": "0.7.4",
+    "rhino3dm": "7.15.0",
+    "three": "0.145.0",
+    "web-ifc": "0.0.35",
+    "occt-import-js": "0.0.12"
+  },
+  "devDependencies": {
+    "react": "^18.0.0",
+    "@testing-library/jest-dom": "^5.15.1",
+    "@testing-library/react": "^13.0.0",
+    "@types/jest": "^27.0.3",
+    "@umijs/fabric": "^2.8.1",
+    "@umijs/test": "^3.0.5",
+    "dumi": "^1.1.0",
+    "father": "^4.0.0-rc.2",
+    "gh-pages": "^3.0.0",
+    "lint-staged": "^10.0.7",
+    "prettier": "^2.2.1",
+    "yorkie": "^2.0.0"
+  }
+}
