@@ -15,6 +15,7 @@ $ npm i @wayyolo/three-viewer
 Start the dev server,
 
 ```javascript
+  import * as THV from '@wayyolo/three-viewer';
   // get the parent element of the viewer
   let parentDiv = document.getElementById ('bim');
 
@@ -30,7 +31,7 @@ Start the dev server,
   });
   // load a model providing model urls
   embeddedViewer.LoadModelFromUrlList ([
-      'https://github.com/WayYOLO/three-viewer/raw/main/assets/model/model.obj',
-      'https://github.com/WayYOLO/three-viewer/raw/main/assets/model/model.mtl'
+    'https://raw.githubusercontent.com/WayYOLO/three-viewer/main/assets/model/model.obj',
+    'https://raw.githubusercontent.com/WayYOLO/three-viewer/main/assets/model/model.mtl'
   ]);
 ```
