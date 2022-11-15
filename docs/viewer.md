@@ -19,27 +19,27 @@ const areaList = [
     name: '全工区'
   },
   {
-    id: '886',
+    id: '805',
     areaNo: 1,
     name: '一工区'
   },
   {
-    id: '890',
+    id: '808',
     areaNo: 2,
     name: '二工区'
   },
   {
-    id: '887',
+    id: '2132',
     areaNo: 3,
     name: '三工区'
   },
   {
-    id: '888',
+    id: '806',
     areaNo: 4,
     name: '四工区'
   },
   {
-    id: '889',
+    id: '807',
     areaNo: 5,
     name: '五工区'
   }
@@ -65,8 +65,8 @@ const BIM = () => {
     });
     // load a model providing model urls
     embeddedViewer.LoadModelFromUrlList ([
-        'https://raw.githubusercontent.com/WayYOLO/three-viewer/main/assets/model/model.obj',
-        'https://raw.githubusercontent.com/WayYOLO/three-viewer/main/assets/model/model.mtl'
+        'https://raw.githubusercontent.com/WayYOLO/three-viewer/main/assets/model/good.obj',
+        'https://raw.githubusercontent.com/WayYOLO/three-viewer/main/assets/model/good.mtl'
     ]);
     console.log(embeddedViewer)
   }, [])
