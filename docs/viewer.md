@@ -11,6 +11,8 @@ Demo:
 ```tsx
 import React, {useState, useEffect} from 'react';
 import * as THV from '@wayyolo/three-viewer';
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const areaList = [
   {
@@ -44,7 +46,10 @@ const areaList = [
     name: '五工区'
   }
 ]
-let embeddedViewer = null
+let embeddedViewer = null;
+let intervalTime = null;
+let timeoutTime = null;
+let controls = null;
 const BIM = () => {
   const [currAreaNo, setCurrAreaNo] = useState(0)
   useEffect(() => {
@@ -57,10 +62,35 @@ const BIM = () => {
         backgroundColor : new THV.RGBAColor (255, 255, 255, 0),
         onModelLoaded : () => {
             let model = embeddedViewer.GetModel ();
-            console.log(model)
-            // do something with the model
+            controls = new OrbitControls( embeddedViewer.viewer.camera, embeddedViewer.viewer.renderer.domElement );
+            // stop autorotate after the first interaction
+            controls.addEventListener('start', function(){
+              clearTimeout(timeoutTime);
+              controls.autoRotate = false;
+            });
+
+            // restart autorotate after the last interaction & an idle time has passed
+            controls.addEventListener('end', function(){
+              clearTimeout(timeoutTime);
+              timeoutTime = setTimeout(function(){
+                controls.autoRotate = true;
+                controls.target.x = embeddedViewer.viewer.navigation.camera.center.x
+                controls.target.y = embeddedViewer.viewer.navigation.camera.center.y
+                controls.target.z = embeddedViewer.viewer.navigation.camera.center.z
+                animate()
+              }, 5000);
+            });
+            if(!timeoutTime){
+              embeddedViewer.viewer.navigation.Zoom(0.28)
+              console.log(controls)
+              controls.autoRotate = true;
+              controls.autoRotateSpeed = 8;
+              controls.target.x = embeddedViewer.viewer.navigation.camera.center.x
+              controls.target.y = embeddedViewer.viewer.navigation.camera.center.y
+              controls.target.z = embeddedViewer.viewer.navigation.camera.center.z
+              animate()
+            }
             highlightArea(0)
-            // embeddedViewer.viewer.SetEdgeSettings (true, new THV.RGBColor (0, 0, 0), 1);
         }
     });
     // load a model providing model urls
@@ -70,6 +100,12 @@ const BIM = () => {
     ]);
     console.log(embeddedViewer)
   }, [])
+
+  const animate = () => {
+    intervalTime = requestAnimationFrame(animate)
+    controls.update();
+    embeddedViewer.viewer.renderer.render(embeddedViewer.viewer.scene, embeddedViewer.viewer.camera)
+  }
 
   const highlightArea = (areaNo) => {
     const id = areaList.find(item => item.areaNo === areaNo).id
@@ -82,6 +118,16 @@ const BIM = () => {
   }
 
   const handleAreaChange = (event) => {
+    clearTimeout(timeoutTime);
+    cancelAnimationFrame(intervalTime);
+    controls.autoRotate = false;
+    timeoutTime = setTimeout(function(){
+        controls.autoRotate = true;
+        controls.target.x = embeddedViewer.viewer.navigation.camera.center.x
+        controls.target.y = embeddedViewer.viewer.navigation.camera.center.y
+        controls.target.z = embeddedViewer.viewer.navigation.camera.center.z
+        animate()
+      }, 5000);
     const areaNo =  +event.target.value
     setCurrAreaNo(areaNo)
     if(areaNo === 0) {
@@ -114,7 +160,7 @@ const BIM = () => {
           {areaList.map(item => <option key={item.areaNo} value={item.areaNo}>{item.name}</option>)}
         </select>
       </div>
-      <div id="bim" />
+      <div id="bim" style={{height: 500}} />
     </div>
   )
 }
